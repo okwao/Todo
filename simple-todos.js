@@ -20,4 +20,12 @@ if (Meteor.isClient) {
       return Tasks.find({}, {sort: {createdAt: -1}});
     }
   });
+  Template.task.events({
+    "cliack .toggle-checked": function () {
+      Tasks.update(this._id, {$set: {checked: ! this.checked}})
+    },
+    "click .delete": function () {
+      Tasks.remove(this._id);
+    }
+  })
 }
