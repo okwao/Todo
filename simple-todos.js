@@ -5,9 +5,11 @@ if (Meteor.isClient) {
         // This function is called when the new task form is submitted
         var text = event.target.text.value;
         Tasks.insert({
-          text :text,
-          createdAt: new Date() // current time
-        });
+        text: text,
+        createdAt: new Date(),            // current time
+        owner: Meteor.userId(),           // _id of logged in user
+        username: Meteor.user().username  // username of logged in user
+      });
         // Clear form
         event.target.text.value = "";
         // Prevent default form submit
@@ -42,4 +44,7 @@ if (Meteor.isClient) {
       Tasks.remove(this._id);
     }
   })
+  Accounts.ui.config({
+  passwordSignupFields: "USERNAME_ONLY"
+});
 }
